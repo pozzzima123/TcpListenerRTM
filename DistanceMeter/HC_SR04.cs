@@ -67,20 +67,36 @@ namespace DistanceMeter
             //wysylasz tylko jedno polecenie pomiaru
             if (args.Edge == GpioPinEdge.FallingEdge)
             {
+                //zatrzymaj timer i oblicz na jego podstawie odleglosc
                 _measureEcho.Stop();
-                _measure.Add(_measureEcho.ElapsedTicks / (Stopwatch.Frequency / (1000L * 1000L)) / 58);
-                _echoPin.ValueChanged -= Detect;
-                Task.Delay(60).Wait();
-                _echoPin.ValueChanged += Detect;
-                _ready = true;
+                long measured = _measureEcho.ElapsedTicks/(Stopwatch.Frequency/(1000L*1000L))/105;
+                //jesli pomiar nie miesci sie w przedziale , jest pewność , że nie jest on prawidlowy
+                //czekaj na kolejny pomiar
+                if (measured < 2 || measured > 400)
+                {
+                    SendTrigger();
+                }
+                else
+                {
+                    //dodaj pomiar do listy
+                    _measure.Add(measured);
+
+                    //czekaj 60ms na nastepny pomiar- WAŻNE
+                    _echoPin.ValueChanged -= Detect;
+                    Task.Delay(60).Wait();
+                    _echoPin.ValueChanged += Detect;
+                    _ready = true;
+                }
             }
         }
 
         private void SendTrigger()
         {
+            //wyslij komende do odczytu
             _triggerPin.Write(GpioPinValue.High);
             WaitUs(10);
             _triggerPin.Write(GpioPinValue.Low);
+            //zacznij odliczanie po ktorym nastepuje wywolanie eventu Detect
             _measureEcho.Restart();
         }
 
@@ -89,6 +105,7 @@ namespace DistanceMeter
             // ReSharper disable once FunctionRecursiveOnAllPaths
             get
             {
+                //zwroc srednia arytmetyczna pomiarów
                 for (int i = 0; i < CountOfMeasure; i++)
                 {
                     _ready = false;
@@ -98,8 +115,6 @@ namespace DistanceMeter
                     }
                 }
                 double toGet = _measure.Average();
-                if (toGet < 2) toGet = 2;
-                if (toGet > 400) toGet = 400;
                 _measure.Clear();
                 return toGet;
             }
@@ -107,6 +122,7 @@ namespace DistanceMeter
 
         private void WaitUs(int us)
         {
+            //timer wysokoprecyzyjny
             _repeater.Restart();
             while (_repeater.ElapsedTicks / (Stopwatch.Frequency / (1000L * 1000L)) <= us)
             {

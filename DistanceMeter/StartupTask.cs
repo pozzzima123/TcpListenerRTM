@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Devices.Gpio;
 
@@ -8,12 +9,12 @@ namespace DistanceMeter
 {
     public sealed class StartupTask : IBackgroundTask
     {
-        private  HC_SR04 hcSr04 = new HC_SR04(24,23,25,12);
+        private readonly HC_SR04 _hcSr04 = new HC_SR04(24,23,25,12);
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            hcSr04.Init();
-            hcSr04.CountOfMeasure = 3;
+            _hcSr04.Init();
+            _hcSr04.CountOfMeasure = 20;
             Petla();
         }
 
@@ -21,19 +22,19 @@ namespace DistanceMeter
         {
                 while (true)
                 {
-                    //Debug.WriteLine(hcSr04.Distance);
-                    if (hcSr04.Distance < 80)
+                    double pomiar = _hcSr04.Distance;
+                    if (pomiar < 80)
                     {
-                        hcSr04.LedPin1.Write(GpioPinValue.High);
-                        hcSr04.LedPin2.Write(GpioPinValue.Low);
-                        Task.Delay(500).Wait();
+                        _hcSr04.LedPin1.Write(GpioPinValue.High);
+                        _hcSr04.LedPin2.Write(GpioPinValue.Low);
                     }
                     else
                     {
-                        hcSr04.LedPin1.Write(GpioPinValue.Low);
-                        hcSr04.LedPin2.Write(GpioPinValue.High);
+                        _hcSr04.LedPin1.Write(GpioPinValue.Low);
+                        _hcSr04.LedPin2.Write(GpioPinValue.High);
                     }
-                }
+                    Debug.WriteLine(pomiar);
+            }
         }
 
     }
