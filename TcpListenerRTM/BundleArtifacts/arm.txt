@@ -1,0 +1,5 @@
+MainPackage=C:\Users\praktykant\Desktop\Damian Pozimski\TcpListenerRTM\TcpListenerRTM\bin\ARM\Debug\TcpListenerRTM_1.0.36.0_ARM_Debug.appx
+ResourcePack=C:\Users\praktykant\Desktop\Damian Pozimski\TcpListenerRTM\TcpListenerRTM\bin\ARM\Debug\TcpListenerRTM_1.0.36.0_scale-100.appx
+ResourcePack=C:\Users\praktykant\Desktop\Damian Pozimski\TcpListenerRTM\TcpListenerRTM\bin\ARM\Debug\TcpListenerRTM_1.0.36.0_scale-125.appx
+ResourcePack=C:\Users\praktykant\Desktop\Damian Pozimski\TcpListenerRTM\TcpListenerRTM\bin\ARM\Debug\TcpListenerRTM_1.0.36.0_scale-150.appx
+ResourcePack=C:\Users\praktykant\Desktop\Damian Pozimski\TcpListenerRTM\TcpListenerRTM\bin\ARM\Debug\TcpListenerRTM_1.0.36.0_scale-400.appx

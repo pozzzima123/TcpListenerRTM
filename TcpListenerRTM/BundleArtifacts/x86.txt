@@ -1,0 +1,5 @@
+MainPackage=C:\Users\praktykant\Desktop\TcpListenerRTM\TcpListenerRTM\bin\x86\Debug\TcpListenerRTM_1.0.32.0_x86_Debug.appx
+ResourcePack=C:\Users\praktykant\Desktop\TcpListenerRTM\TcpListenerRTM\bin\x86\Debug\TcpListenerRTM_1.0.32.0_scale-100.appx
+ResourcePack=C:\Users\praktykant\Desktop\TcpListenerRTM\TcpListenerRTM\bin\x86\Debug\TcpListenerRTM_1.0.32.0_scale-125.appx
+ResourcePack=C:\Users\praktykant\Desktop\TcpListenerRTM\TcpListenerRTM\bin\x86\Debug\TcpListenerRTM_1.0.32.0_scale-150.appx
+ResourcePack=C:\Users\praktykant\Desktop\TcpListenerRTM\TcpListenerRTM\bin\x86\Debug\TcpListenerRTM_1.0.32.0_scale-400.appx

@@ -1,0 +1,26 @@
+﻿Dokumentacja -> Projekt I2c:
+
+I2C.cs - zawiera metody pozwalające na połączenie się i komunikacje z urządzeniem I2C
+Połączenie odbywa się poprzez wywołanie metody I2cInit i podaniu do niej adresu urzadzenia, oraz trybu komunikacji.
+Metoda posiada system wyjątków pozwalających na ocenę powstałych błędów.
+Po poprawnym połączeniu klasa przez flagę _isConnected dostaje pozwolenie na odbieranie i wysyłanie danych.
+Gdy w czasie tych operacji wynikną błedy metody zwracają fałsz lub zbiór pusty.
+Metoda GetDevicesList zwraca adresy podłączonych urządzeń.
+
+
+DS1307.cs - zawiera metody umożliwiające odczyt i zapis danych do urządzenia DS1307:
+- odczyt zapis godziny i daty
+- odczyt zapis danych do pamięci RAM(rejestry zgodnie z dokumentacja ds1307)
+- kontrola oscylatora zegarka (SQWE)
+
+BitOperate.cs - klasa zawierająca metody pozwalające na przeprowadzanie operacji bitowych AND,XOR,OR
+oraz metody konwertujące liczby dziesiętne na zapisane w postaci BCD
+
+DS1307Enum.cs - zbiór typów wyliczeniowych wykorzystywanych w klasie DS1307.cs
+
+
+Klasa pisana na podstawie:
+http://datasheets.maximintegrated.com/en/ds/DS1307.pdf
+
+
+

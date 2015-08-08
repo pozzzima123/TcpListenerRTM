@@ -1,0 +1,123 @@
+﻿///////////Wersja RC/////////////
+Instalacja środowiska
+Prześledzić:
+http://ms-iot.github.io/content/en-US/win10/SetupRPI.htm
+1. Po instalacji Windows 10 należy pamiętać by włączyć tryb deweleoperski dodatkowo przez ustawienia (Ustawienia->
+Aktualizacja i Zabezpieczenia->Dla deweloperów) oraz przez  gpedit.msc jako Administrator i przejść  do 
+"Wdrażanie pakietów aplikacji" (Zasady Komputer lokalny->Konfiguracja komputera->Szablony Administracyjne->
+Składniki systemu Windows->Wdrażanie pakietów aplikacji) po czym zaznaczyć:
+- Zezwalaj na instalowanie wszystkich aplikacji zaufanych,
+- Zezwala lub nie zezwala na opracowywanie aplikacji ze Sklepu Windows i instalowanie ich bezpośrednio ze środowiska 
+IDE.
+ Podczas instalacji Visual Studio 
+dostępnej w ww linku nalezy zaznaczyć  instalację niestandardową i spośród listy modułów wybrać "Universal Windows App 
+Development Tools”, “Tools and Windows SDK” oraz “Emulators for Windows Mobile". Jeśli wystąpiły  jakiekolwiek problemy
+podczas instalacji należy doinstalować dodatkowe paczki z linku:
+https://dev.windows.com/en-us/downloads/windows-10-developer-preview
+wybierając Windows SDK i/lub Mobile Emulator. Po zainstalowaniu tych paczek należy ponownie doinstalować brakujące 
+paczki w instalatorze VS 2015.
+2. Po tym należy zainstalować plik zawierający m.in system Windows IoT , który wgrywa się na Raspberry.
+http://ms-iot.github.io/content/en-US/win10/SetupRPI.htm
+W tym punkcie należy pamiętać, aby używac karty SD o klasie minimum 10. Class 4 powodował problemy w naszym wypadku.
+
+3. Gdy środowisko Windows, Visual Studio 2015 RC jest zainstalowane, należy doinstalować paczkę "Visual Studio 2015 
+Remote Tools", którą można znaleźć w linku oraz uruchomić ją i Zapora systemu Windows powinna zapytać się o przynzanie 
+uprawnień:
+https://www.microsoft.com/en-us/download/details.aspx?id=46874
+//////RC//////////
+
+/////Visual Studio 2015 RTM//////////////
+Przygotowując się do instalacji Visual Studio w BIOS nalezy włączyć wirtualizację.
+1. Instalacja Windows 10 w wersji RTM
+2. Należy zainstalować Visual Studio 2015(z linku z strony) oraz Windows 10 SDK, IoT Templates
+a) obowiązkowo musimy pobrać instalator ze strony(postępowac wg zawartych w niej instrukcji):
+http://ms-iot.github.io/content/en-US/win10/SetupPCRPI.htm
+/////Visual Studio 2015 RTM/////////////
+
+////RASPBERRY/////
+	//INSTALACJA
+	Należy pamiętać, aby używac karty SD o klasie minimum 10. Class 4 powodował problemy w naszym wypadku!
+	Wymagana instalacja pliku zawierającego m.in system Windows IoT , który wgrywa się na Raspberry
+	(przejrzysta instrukcja).
+	http://ms-iot.github.io/content/en-US/win10/SetupRPI.htm
+	//INSTALACJA
+Sprawdzenie
+Jeśli wszystko przebiegło prawdiłowo w programie Windows IoT Core Watcher powinno pojawić się urządzenie o 
+standardowej  nazwie minwinpc.
+Raspberry - Informacje
+Raspberry posiada menadżer zadań dostępny pod adresem  - localip:8080 oraz serwer ftp. W przypadku połączenia 
+Powershell należy pamiętać, by na komputerze uruchamiać aplikację jako Administrator.
+Komendy:
+Procedura logowania:
+	net start WinRM
+	Set-Item WSMan:\localhost\Client\TrustedHosts -Value <machine-name or IP Address>
+	Enter-PsSession -ComputerName <machine-name or IP Address> -Credential <machine-name or IP Address or localhost>\Administrator
+
+Po wpisaniu ostatniej komendy Powershell dostanie odpowiedź z prośbą o podanie hasła , standardowe to: p@ssw0rd . 
+Proces logowania trwa około minuty.
+Zmiana hasła:
+	net user Administrator [nowe hasło]
+Zmiana nazwy urzadzenia:
+	 setcomputername <new-name>
+	Po rozruchu nalezy w konsoli wpisać dodatkową komendę:
+	Set-Item WSMan:\localhost\Client\TrustedHosts -Value <new-name>
+Shutdown/reboot:
+	shutdown /r /t 0
+W przypadku znacznika czasu konieczne jest ustawienie poprawnego czasu:
+	W tym celu należy:
+	cd C:/Windows/system32
+	tzutil /l
+	Wybrać i skopiować jakąkolwiek strefę czasową 
+	tzutil /s "Strefa"
+////RASPBERRY/////
+
+//////PROJEKT///////
+TcpListenerUN:
+Jest serwerem TCP, który pozwala na otrzymywanie wiadomości od połączonych użytkowników w formie paczek jSON lub
+wiadomości tekstowych wraa z znacznikiem czasu.
+Jego dodatkowe atrybuty to możliwośc logowania otrzymanych danych(w tym wypadku paczek jSON) do pliku tekstowego, do 
+zdalnej bazy dany MySQL oraz lokalnej bazy SQLite.
+
+W projekcie zastosowano paczki Nugets: SQLite.Net-PCL.
+Dodatkowo rozszerzenia Visual Studio: SQL SDK.
+Dodatkowe referencje: Mysql.Data.RT .
+Powyższe pliki umieszczone są w folderze Redist.
+(Nalezy dodać Mysql.Data.RT do referencji)
+
+
+Opis i funkcjonalność klas:
+Events.cs - zbiór eventów zawierające elementy do interakcji działan w tle z UI(wyświetlanie tekstu, 
+wysyłanie paczek jSon, status usług, adresy IP podłączonych socketów):
+Json.cs = klasa sprawdzająca i obsługująca paczki jSon
+LoggingMysql.cs - klasa wysyłająca informacje do zdalnej bazy danych
+	Parametr: Interval - opóźnienie
+JsonSend - metoda wysyłająca dane json do bazy, kształt paczki jest statyczny i zgodny z tym co przesyła aplikacja 
+Kamila Sochy SerialTcpConvertera
+
+LoggingTxt.cs - klasa odpowiadająca za odczyt i zapis do pliku danych jSon 
+PrepareUiData.cs - klasa odpowiedzialna za wprowadzanie poprawnych danych do tworzonych obiektów, zawiera w sobie 
+metody: 
+	GetIpAddress - pobierająca lokalny adres IP 
+	ValidPort - metoda sprawdzająca poprawność wprowadzonego portu, 1 - poprawny, 0 - niepoprawny
+	IsIpCorrect - metoda sprawdzająca adres IP, 1 - poprawny, 0 - niepoprawny 
+	Parametr: MaxSizeStr - maksymalny rozmiar stringu powyżej, którego następuje jego obcięcie
+	BufferStrCheck - metoda sprawdzająca długośc stringu , wykorzystywana w celu obnizenia lagu spowodowanego przez 
+	wyświetlanie zbyt wielu informacji w UI
+Sqlite.cs = klasa odpowiedzialna za wysyłanie danych do lokalnej bazy danych 
+	Parametr: dbName  - nazwa bazy danych
+			  interval - opóźnienie
+	WriteJson - metoda, podobnie jak w mySql, posiada statyczny szkielet paczki jSon, a wprowadzanie do bazy odbywa się 
+poprzez listę
+
+TcpServer.cs - obsługa socketów:
+	Parametry: LogJsonEnableToTxt - bool , 1 - oznacza logowanie danych do pliku Txt
+
+Ograniczenia logowania:
+a) Txt logging - Windows Universal zawiera ograniczenie maksymalnie tworzonego pliku txt (około 200kB)
+b) Sqlite - brak możliwości swobodnej zmiany lokalizacji bazy danych
+
+
+
+
+ 
+

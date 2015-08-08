@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="TCPListener" Publisher="CN=praktykant" Version="1.0.36.0" />
+  <mp:PhoneIdentity PhoneProductId="e5309d7a-f9f3-4670-ba96-ff97618f88a4" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>TCP Listener</DisplayName>
+    <PublisherDisplayName>Damian Pozimski</PublisherDisplayName>
+    <Logo>Assets\poleko.jpg</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.10069.0" MaxVersionTested="10.0.10069.0" />
+    <PackageDependency Name="Microsoft.NET.CoreRuntime.1.0" MinVersion="1.0.22816.1" Publisher="CN=Microsoft" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="TcpListenerUN.App">
+      <uap:VisualElements DisplayName="TCP Listener" Square150x150Logo="Assets\poleko.jpg" Square44x44Logo="Assets\poleko.jpg" Description="Which this app you can make TCP Server and get messages from sockets and you can log to your local/remote database JSON data." BackgroundColor="#464646">
+        <uap:SplashScreen Image="Assets\1390455025_nice_abstract_background.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\poleko.jpg">
+        </uap:DefaultTile>
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <Capability Name="internetClientServer" />
+  </Capabilities>
+</Package>

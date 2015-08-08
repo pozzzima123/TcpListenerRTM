@@ -1,0 +1,329 @@
+﻿<Page
+    x:Class="TcpListenerRTM.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TcpListenerRTM"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/1390455025_nice_abstract_background.png" />
+        </Grid.Background>
+        <Grid Margin="5">
+            
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontWeight" Value="Medium"/>
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontWeight" Value="Medium"/>
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+                <Style TargetType="ListBox">
+                    <Setter Property="Background" Value="#3F00FFFF"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Background" Value="#3F00FFFF"/>
+                </Style>
+            </Grid.Resources>
+            
+            <Grid Grid.Row="2" Grid.Column="4" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="Log to Txt File:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <Button Name="txtButtEnableLog" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Content="Enable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Visible" Click="txtButtEnableLog_Click" />
+                <Button Name="txtButtDisableLog" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Content="Disable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Collapsed" Click="txtButtDisableLog_Click"/>
+            </Grid>
+            
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Name="dbTblock" Margin="5" Text="Database Config:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <RadioButton Grid.Column="3" Grid.Row="1" IsChecked="True" Name="rbMysql" Content="Remote"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" GroupName="logMode" Click="rbMysql_Click" />
+                <RadioButton Grid.Column="4" Grid.Row="1"  Name="rbSqlite" Content="Local"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" GroupName="logMode" Click="rbSqlite_Click" />
+                
+                <TextBlock Grid.Column="1" Grid.Row="2" Name="mysqlServerAddrTxb"  Text="Server:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="2" Grid.Row="2" Name="mysqlServerAddr" Text="192.168.1.213" VerticalAlignment="Center"/>
+                
+                <TextBlock Grid.Column="1" Grid.Row="3" Name="mysqlPortTxb"  Text="Port:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="2" Grid.Row="3" Name="mysqlPort" Text="3306" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="4"  Name="mysqlDbNameTxb" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Database name:"/>
+                <TextBox Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" Name="mysqlDbName" Text="tcp"/>
+
+                <TextBlock Grid.Column="3" Grid.Row="2"  Name="mysqlDbUsernameTxb" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Username:"/>
+                <TextBox Grid.Column="4" Grid.Row="2" Name="mysqlDbUsername" VerticalAlignment="Center" Text="tcp"/>
+
+                <TextBlock Grid.Column="3" Grid.Row="3"  Name="mysqlDbUserPasswdTb" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Password:"/>
+                <TextBox Grid.Column="4" Grid.Row="3" Name="mysqlDbUserPasswd" VerticalAlignment="Center" Text="poleko" />
+
+                <TextBlock Grid.Column="1" Grid.Row="2" Name="sqlDbNameTxb" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Database Name:" Visibility="Collapsed"/>
+                <TextBox Grid.Column="2" Grid.Row="2" Name="sqlDbName" VerticalAlignment="Center" Text="db.s3db" Visibility="Collapsed"/>
+
+                <Button Grid.Column="3" Grid.Row="4" Name="toDbEnableButton" IsEnabled="True"  Content="Enable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="mysqldBEnableButton_Click"/>
+                <Button Grid.Column="4" Grid.Row="4" Name="mysqldBDisableButton" IsEnabled="False"  Content="Disable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="mysqldBDisableButton_Click"/>
+
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Name="countConnected" Grid.Row="1" Grid.Column="1" Text="Connected sockets:" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="5"  />
+                <ScrollViewer Name="svConnectedSockets" Grid.Row="2" Grid.Column="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox  Name="connectedSocketsLb" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                        
+                    </ListBox>
+                </ScrollViewer>
+            </Grid>
+            
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Grid.Row="1" Name="startTcpButton" Content="SERVER START"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="startTcpButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="2" Name="stopTcpButton" Content="SERVER STOP"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="stopButton_Click" IsEnabled="False"/>
+                </Grid>
+                
+
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="Server Config:"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="1"  Name="whatIpAddressTBlock" Margin="5"   Text="Your local IP:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="2" Name="whatIpAddress" Text="" VerticalAlignment="Center" Margin="5" IsReadOnly="True"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="1" Grid.Column="1"  Name="whatPortTXT" Margin="5"  Text="Port:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="2" Name="whatPort" Text="230" VerticalAlignment="Center" Margin="5"/>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Name="receivedTextLb1"  Text="Server Respond:"  HorizontalAlignment="Left" Margin="5"></TextBlock>
+                    <Button Grid.Row="1" Grid.Column="2" Name="cleanRIM" Content="CLEAN" HorizontalAlignment="Right" Margin="5" Click="cleanRIM_Click" ></Button>
+                </Grid>
+
+                <ScrollViewer Grid.Row="2" Grid.Column="1" Name="svTcpMessagesFromListener" ScrollViewer.VerticalScrollMode="Auto"  Margin="5">
+                    <TextBox Name="tcpMessagesFromListenerTb" IsReadOnly="True" TextWrapping="Wrap" VerticalContentAlignment="Stretch" Background="Aqua" />
+                </ScrollViewer>
+
+                </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Name="receivedTextLb3"  Text="Database Log:"  HorizontalAlignment="Left" Margin="5"></TextBlock>
+                    <Button Grid.Row="1" Grid.Column="2" Name="cleanMYSQL" IsEnabled="false" Content="CLEAN"  HorizontalAlignment="Right" Margin="5" Click="cleanMYSQL_Click" ></Button>
+                </Grid>
+                <ScrollViewer Grid.Row="2" Grid.Column="1" Name="svReceivedTextMysql" ScrollViewer.VerticalScrollMode="Auto" Margin="5">
+                    <TextBox  Name="mysqlMessagesTb" IsReadOnly="True"   TextWrapping="Wrap" VerticalContentAlignment="Stretch"  Background="Aqua" />
+                </ScrollViewer>
+                </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Name="receivedTextLb2"  Text="Messages:"  HorizontalAlignment="Left" Margin="5"></TextBlock>
+                    <Button  Grid.Row="1" Grid.Column="2" Name="cleanMSG" Content="CLEAN" IsEnabled="True" HorizontalAlignment="right" Margin="5" Click="cleanMSG_Click"></Button>
+                </Grid>
+                <ScrollViewer Name="svTcpMessagesFromSockets" Grid.Row="2" Grid.Column="1" ScrollViewer.VerticalScrollMode="Auto"  Margin="5">
+                    <TextBox Name="tcpMessagesFromSocketsTb" IsReadOnly="True" Background="Cyan" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" ></TextBox>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="1" Grid.Column="1"  Text="JSON Data:"  HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                    <Button  Grid.Row="1" Grid.Column="2" Name="cleanJSON" Content="CLEAN" IsEnabled="True" HorizontalAlignment="right" Click="cleanJSON_Click" ></Button>
+                </Grid>
+                <ScrollViewer Name="svJsonDataLb" Grid.Row="2" Grid.Column="1" VerticalScrollMode="Auto" >
+                    <ListBox Name="jSonDataLb"></ListBox>     
+                </ScrollViewer>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Page>

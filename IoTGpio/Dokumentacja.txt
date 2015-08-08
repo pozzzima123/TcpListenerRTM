@@ -1,0 +1,7 @@
+﻿Projekt IoTGpio:
+
+Projekt testowy  służący do opanowania techniki wykorzystywania wyprowadzeń sterownika Gpio while Raspberry.
+Jego zasada działania polega na naprzemiennym miganiu wbudowanych diod LED (RED, GREEN) z ustalonym interwałem.
+
+Uwaga: Z przeprowadzonych testów, próba utworzenia programowego PWM skończyła się niepowodzeniem. 
+Mimo stałego interwału(np. 60Hz) diody wykazywały nieliniową i stałą zmianę pinu.
